@@ -1,9 +1,13 @@
 import {Component, OnInit} from '@angular/core'
 import {Observable} from 'rxjs'
-import {ProductService} from '../../shared/product.service'
 import {ActivatedRoute} from '@angular/router'
-import {switchMap} from 'rxjs/operators'
-import { Product } from 'src/app/reducers/counter'
+import {Product} from '../../shared/inerfaces'
+import {Store} from '@ngrx/store'
+import {productSelector} from '../../reducers/product/product'
+import {loadingSelector} from '../../reducers/product/product'
+import {getById} from '../../reducers/product/product-actions'
+import {addToCart} from '../../reducers/order/order-actions'
+
 
 
 @Component({
@@ -13,24 +17,20 @@ import { Product } from 'src/app/reducers/counter'
 })
 export class ProductPageComponent implements OnInit {
 
-  product$: Observable<Product>
+  product$: Observable<Product> = this.store.select(productSelector)
+  loading$: Observable<boolean> = this.store.select(loadingSelector)
 
   constructor(
-    private productService: ProductService,
+    private store: Store,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.product$ = this.route.params
-      .pipe(
-        switchMap( params => {
-          return this.productService.getById(params.id)
-        })
-      )
+    this.store.dispatch(getById({id: this.route.snapshot.params.id}))
   }
 
   addProductToCart(product: Product): void {
-    this.productService.addProductToCart(product)
+    this.store.dispatch(addToCart({product}))
   }
-
 }

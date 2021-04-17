@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms'
 import {AuthService} from '../../shared/auth.service'
 import {Router} from '@angular/router'
 
@@ -12,6 +12,7 @@ import {Router} from '@angular/router'
 export class LoginPageComponent implements OnInit {
   userForm: FormGroup
   submitted = false
+  loginError = false
 
   constructor(
     public formBuilder: FormBuilder,
@@ -40,14 +41,20 @@ export class LoginPageComponent implements OnInit {
       returnSecureToken: true
     }
     this.submitted = true
-    this.auth.login(user).subscribe( res => {
+    this.auth.login(user)
+      .subscribe( res => {
         this.userForm.reset()
         this.router.navigate(['/admin', 'dashboard'])
         this.submitted = false
-      }, () => {
+      }, (err) => {
+        this.loginError = true
         this.submitted = false
+        this.userForm.reset()
+        const loginErrorTimeout = setTimeout(() => {
+        this.loginError = false
+        clearInterval(loginErrorTimeout)
+      }, 2500)
       }
     )
   }
-
 }

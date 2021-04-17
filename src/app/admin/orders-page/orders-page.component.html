@@ -1,5 +1,5 @@
-<div class="container__main" *ngIf="orders.length; else noOrders">
-  <div class="table-container">
+<div class="container__main" *ngIf="orders$ | async as orders">
+  <div class="table-container" *ngIf="orders.length; else noOrders">
     <table class="table table-dark table-striped">
       <thead>
       <tr>
@@ -33,17 +33,17 @@
       </tbody>
     </table>
   </div>
-
-
-
-
-
+  <ng-template  #noOrders>
+    <div class="noOrders">
+      <h3>Заказов ещё нет...</h3>
+    </div>
+  </ng-template>
+  <div *ngIf="loading$ | async" class="text-loading">
+    <app-loading></app-loading>
+  </div>
 </div>
 
-<ng-template #noOrders>
-  <div class="noOrders">
-    <h3>Заказов ещё нет</h3>
-  </div>
 
-</ng-template>
+
+
 

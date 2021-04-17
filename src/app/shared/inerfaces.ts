@@ -15,7 +15,8 @@ export interface User {
 }
 
 export interface FbResponse {
-  name: string
+  name: string,
+  date?: Date
 }
 
 export interface Order {
@@ -29,3 +30,21 @@ export interface Order {
   date?: Date
 }
 
+
+
+
+
+export interface ProductState {
+  type: string,
+  product: Product,
+  products: Product[],
+  loading: boolean
+}
+
+
+export interface OrderState {
+  allOrders: Order[],
+  totalPrice: number,
+  cart: Product[],
+  loading: boolean
+}

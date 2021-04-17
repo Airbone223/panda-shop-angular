@@ -3,18 +3,16 @@ import {HttpClient} from '@angular/common/http'
 import {environment} from '../../environments/environment'
 import {map} from 'rxjs/operators'
 import {Observable} from 'rxjs'
-import {FbResponse, Product} from './inerfaces';
+import {FbResponse, Product} from './inerfaces'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  type = 'All'
-  cart: Product[] = []
   constructor(private http: HttpClient) { }
 
-  create(product: Product): Observable<any> {
+  create(product: Product): Observable<Product> {
     return this.http.post(`${environment.fbDbUrl}/products.json`, product)
       .pipe(map((res: FbResponse) => {
         return ({
@@ -54,13 +52,4 @@ export class ProductService {
   update(product: Product): Observable<any> {
     return  this.http.patch(`${environment.fbDbUrl}/products/${product.id}.json`, product)
   }
-
-  setType(type: string): void {
-    this.type = type
-  }
-
-  addProductToCart(product: Product): void {
-    this.cart.push(product)
-  }
-
 }

@@ -1,46 +1,34 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ProductService} from '../../shared/product.service';
-import {Subscription} from 'rxjs';
+import {Component, OnInit} from '@angular/core'
+import {Observable} from 'rxjs'
+import {Product} from '../../shared/inerfaces'
+import {Store} from '@ngrx/store'
+import {loadingSelector, productsSelector, typeSelector} from '../../reducers/product/product'
+import {getAll, removeProduct, setType} from '../../reducers/product/product-actions'
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
-  //@ts-ignore
-  products: Product[] = []
-  //@ts-ignore
-  pSub: Subscription
-  //@ts-ignore
-  remSub: Subscription
-  productName: any;
-  constructor(private productService: ProductService) { }
+export class DashboardComponent implements OnInit {
+  products$: Observable<Product[]> = this.store.select(productsSelector)
+  loading$: Observable<boolean> = this.store.select(loadingSelector)
+  productName
+  type$: Observable<string> = this.store.select(typeSelector)
+  constructor(private store: Store) { }
+
+
 
   ngOnInit(): void {
-    this.pSub = this.productService.getAll().subscribe(
-      products => {
-        //@ts-ignore
-        this.products = products
-      }
-    )
+    this.store.dispatch(getAll())
+    this.store.dispatch(setType({checkedType: 'All'}))
   }
 
-  remove(id: string) {
-    this.remSub = this.productService.remove(id).subscribe(() => {
-      //@ts-ignore
-      this.products = this.products.filter(prod => prod.id !== id)
-    })
+  remove(id: string): void {
+    this.store.dispatch(removeProduct({id}))
   }
 
-
-  ngOnDestroy() {
-    if (this.pSub) {
-      this.pSub.unsubscribe()
-    }
-    if (this.remSub) {
-      this.remSub.unsubscribe()
-    }
+  setType(checkedType: string): void {
+    this.store.dispatch(setType({checkedType}))
   }
-
 }

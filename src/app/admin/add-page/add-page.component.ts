@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms'
 import {ProductService} from '../../shared/product.service'
+
 
 
 @Component({
@@ -16,6 +17,7 @@ export class AddPageComponent implements OnInit {
       ['image']
     ]
   }
+
   constructor(
     public formBuilder: FormBuilder,
     public productService: ProductService) {
@@ -49,13 +51,12 @@ export class AddPageComponent implements OnInit {
       price: this.productForm.value.price,
       date: new Date()
     }
-    this.submitted = true
-    this.productService.create(product).subscribe( res => {
-        this.productForm.reset()
-        this.submitted = false
-      }, () => {
-        this.submitted = false
-      }
-    )
+    this.productService.create(product).subscribe( () => {
+  this.productForm.reset()
+  this.submitted = false
+         }, () => {
+           this.submitted = false
+         }
+       )
+     }
   }
-}

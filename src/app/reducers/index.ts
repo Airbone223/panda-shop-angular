@@ -1,22 +1,23 @@
 import {
-  ActionReducer,
   ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
   MetaReducer
 } from '@ngrx/store'
 
 import {environment} from '../../environments/environment'
-import {COUNTER_KEY, PRODUCT_KEY, counterReducer, CounterState, ProductState, productReducer} from './counter';
+import {PRODUCT_KEY, productReducer} from './product/product'
+import {OrderState, ProductState} from '../shared/inerfaces'
+import {ORDER_KEY, orderReducer} from './order/order'
+
+
 
 export interface State {
-  [COUNTER_KEY]: CounterState,
   [PRODUCT_KEY]: ProductState
+  [ORDER_KEY]: OrderState
 }
 
 export const reducers: ActionReducerMap<State> = {
-  [COUNTER_KEY]: counterReducer,
-[PRODUCT_KEY]: productReducer
+[PRODUCT_KEY]: productReducer,
+[ORDER_KEY]: orderReducer
 }
 
 

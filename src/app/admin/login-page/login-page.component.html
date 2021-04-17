@@ -23,8 +23,9 @@
     <div class="btn-container">
       <button type="submit" class="btn btn-dark" [disabled]="userForm.invalid || submitted">Войти</button>
     </div>
-
+    <div *ngIf="loginError" class="error">Неправильный логин или пароль!</div>
   </form>
+
 </div>
 
 

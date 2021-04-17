@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
-import {ProductService} from '../../shared/product.service'
-import {switchMap} from 'rxjs/operators'
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms'
-import {Product} from '../../reducers/counter'
+import {Product} from '../../shared/inerfaces'
+import {switchMap} from 'rxjs/operators'
+import {ProductService} from '../../shared/product.service'
 
 
 @Component({
@@ -18,12 +18,12 @@ export class EditPageComponent implements OnInit {
   submitted = false
 
   constructor(
-    public formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private productService: ProductService,
+    private formBuilder: FormBuilder,
     private router: Router
-  ) {
-  }
+  ) { }
+
 
   imageModule = {
     toolbar: [
@@ -31,10 +31,9 @@ export class EditPageComponent implements OnInit {
     ]
   }
 
-
   ngOnInit(): void {
     this.route.params.pipe(
-      switchMap(params => {
+      switchMap( params => {
         return this.productService.getById(params.id)
       })
     ).subscribe(product => {
@@ -47,6 +46,7 @@ export class EditPageComponent implements OnInit {
         info: [this.product.info, [Validators.required]],
         price: [this.product.price, [Validators.required]]
       })
+
     })
   }
 
@@ -58,7 +58,9 @@ export class EditPageComponent implements OnInit {
     if (this.productForm.invalid) {
       return
     }
+
     this.submitted = true
+
     this.productService.update({
       ...this.product,
       type: this.productForm.value.type,
@@ -69,11 +71,8 @@ export class EditPageComponent implements OnInit {
       price: this.productForm.value.price,
       date: new Date()
     }).subscribe( res => {
-        this.submitted = false
-        this.router.navigate(['/admin', 'dashboard'])
-      }, () => {
-        this.submitted = false
-      }
-    )
+      this.submitted = false
+      this.router.navigate(['/admin', 'dashboard'])
+    })
   }
 }

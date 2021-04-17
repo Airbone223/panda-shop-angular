@@ -156,25 +156,6 @@ textarea {
   display: none;
 }
 
-.relative {
-  position: relative;
-  .round {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: -50%;
-    left: -20%;
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    color: #ffffff;
-    background-color: red;
-    border: 1px solid #ffffff;
-    border-radius: 50%;
-  }
-}
-
-
 @media (max-width: 950px) {
 
   .header__list li {

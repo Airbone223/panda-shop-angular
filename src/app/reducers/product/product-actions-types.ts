@@ -1,0 +1,7 @@
+export const GET_ALL = '[PRODUCT] get all'
+export const GET_ALL_SUCCESS = '[PRODUCT] load product success'
+export const GET_BY_ID_SUCCESS = '[PRODUCT] get product by id success'
+export const GET_BY_ID = '[PRODUCT] get product by id'
+export const SET_TYPE = '[PRODUCT] set type of products'
+export const REMOVE_PRODUCT = '[PRODUCT] remove product from server'
+export const REMOVE_PRODUCT_SUCCESS = '[PRODUCT] remove product success'

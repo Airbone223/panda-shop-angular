@@ -3,6 +3,17 @@
   justify-content: center;
 }
 
+.error {
+  text-align: center;
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #de1919;
+  margin: 15px;
+  border-radius: 5px;
+  opacity: .8;
+  padding: 10px 0;
+}
+
 .btn-container {
   display: flex;
   justify-content: center;

@@ -1,41 +1,51 @@
-import { Component, OnInit } from '@angular/core'
+import {Component, OnDestroy, OnInit} from '@angular/core'
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms'
 import {Router} from '@angular/router'
-import {Product} from '../../reducers/counter'
-import {ProductService} from '../../shared/product.service'
 import {OrdersService} from '../../shared/orders.service'
-import {Order} from '../../shared/inerfaces'
+import {Order, Product} from '../../shared/inerfaces'
+import {Store} from '@ngrx/store'
+import {Observable, Subscription} from 'rxjs'
+import {cartSelector, totalPriceSelector} from '../../reducers/order/order'
+import {removeFromCart} from '../../reducers/order/order-actions'
 
 @Component({
   selector: 'app-cart-page',
   templateUrl: './cart-page.component.html',
   styleUrls: ['./cart-page.component.scss']
 })
-export class CartPageComponent implements OnInit {
+export class CartPageComponent implements OnInit, OnDestroy {
   form: FormGroup
-  cart: Product[] = []
-  totalPrice = 0
-  submitted = false
+  cart$: Observable<Product[]> = this.store.select(cartSelector)
+  cart: Product[]
+  cartSub$: Subscription
+  priceSub$: Subscription
+  totalPrice$: Observable<number> = this.store.select(totalPriceSelector)
   added = ''
+  submitted
+  price
   constructor(
-    private productService: ProductService,
+    private store: Store,
     private orderService: OrdersService,
     private fb: FormBuilder,
     private router: Router
   ) { }
-
   ngOnInit(): void {
-    this.cart = this.productService.cart
-    this.cart.forEach(item => {
-      this.totalPrice += +item.price
-    })
-
+    this.cartSub$ = this.cart$.subscribe(
+      cart => {
+        this.cart = cart
+      }
+    )
+    this.priceSub$ = this.totalPrice$.subscribe(
+      price => {
+        this.price = price
+      }
+    )
     this.form = this.fb.group(
       {
         name: ['', [Validators.required]],
         phone: ['', [Validators.required]],
         address: ['', [Validators.required]],
-        payment: ['Cash'],
+        payment: ['Картой на сайте'],
       }
     )
   }
@@ -50,11 +60,11 @@ export class CartPageComponent implements OnInit {
     }
     const order: Order = {
       cart: this.cart,
+      price: this.price,
       name: this.form.value.name,
       phone: this.form.value.phone,
       address: this.form.value.address,
       payment: this.form.value.payment,
-      price: this.totalPrice,
       date: new Date()
     }
     this.submitted = true
@@ -74,8 +84,15 @@ export class CartPageComponent implements OnInit {
   }
 
   delete(product: Product): void {
-    this.totalPrice -= +product.price
-    this.cart.splice(this.cart.indexOf(product), 1)
+   this.store.dispatch(removeFromCart({product}))
+  }
+  ngOnDestroy(): void {
+    if (this.cartSub$) {
+      this.cartSub$.unsubscribe()
+    }
+    if (this.priceSub$) {
+      this.priceSub$.unsubscribe()
+    }
   }
 }
 

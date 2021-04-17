@@ -2,6 +2,21 @@
   padding-bottom: 5px;
 }
 
+.icons-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  .icons {
+    &:hover {
+      color: gray;
+      cursor: pointer;
+    }
+    i {
+      font-size: 40px;
+    }
+  }
+}
+
 i.remove {
   display: block;
   &:hover {

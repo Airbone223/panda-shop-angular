@@ -1,8 +1,8 @@
-<div class="container__main" *ngIf="cart.length > 0; else empty">
-  <div class="common-container">
+<div class="container__main" *ngIf="cart$| async as cart">
+  <div class="common-container"  *ngIf="cart.length; else empty">
     <h3 class="center">Ваша корзина:</h3>
     <table class="table table-dark table-striped">
-      <caption>Общая стоимость:  {{totalPrice}} $</caption>
+      <caption *ngIf="totalPrice$ | async as totalPrice">Общая стоимость:  {{totalPrice}} $</caption>
       <thead>
       <tr>
         <th scope="col">Товар</th>
@@ -52,8 +52,8 @@
       <div class="form-control">
         <label for="payment">Способ оплаты:</label>
         <select id="payment" formControlName="payment">
-          <option value="Cash">Наличными курьеру</option>
-          <option value="Card">Картой на сайте</option>
+          <option value="Наличными курьеру">Наличными курьеру</option>
+          <option value="Картой на сайте">Картой на сайте</option>
         </select>
       </div>
       <div class="btn-container">

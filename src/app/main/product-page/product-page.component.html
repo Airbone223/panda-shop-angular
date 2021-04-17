@@ -1,6 +1,26 @@
-<div *ngIf="product$ | async as product; else loading">
+<div *ngIf="product$ | async as product">
   <div class="container__main">
     <div class="content">
+
+      <div class="description-title">
+        <h3>{{ product.title}}</h3>
+        <h3 class="title-price">Цена: {{product.price}}$</h3>
+      </div>
+      <div class="description">
+
+        <div class="flex-left">
+          <quill-view-html [content]="product.photo"></quill-view-html>
+          <quill-view-html [content]="product.photoBack"></quill-view-html>
+
+        </div>
+        <div class="flex-right">
+          <div class="quil-center">
+
+
+            <quill-view-html [content]="product.info"></quill-view-html>
+          </div>
+        </div>
+      </div>
       <div class="button-container">
         <button routerLink="/" class="btn btn-dark btn-sm"
                 data-helper="Назад">
@@ -11,36 +31,13 @@
           <i class="material-icons icon icon-product-page">add_shopping_cart</i>
         </button>
       </div>
-      <div class="description-title">
-        <h3>{{ product.title}}</h3>
-      </div>
-      <div class="description">
-
-        <div class="flex-left">
-          <quill-view-html [content]="product.photo"></quill-view-html>
-          <quill-view-html [content]="product.photoBack"></quill-view-html>
-
-
-          <h4 class="title-price">Цена: {{product.price}}$</h4>
-
-
-        </div>
-        <div class="flex-right">
-          <h4>Описание:</h4>
-          <div class="quil-center">
-
-
-            <quill-view-html [content]="product.info"></quill-view-html>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   <app-footer class="footer-container"></app-footer>
 </div>
-<ng-template #loading>
-  <div class="text-center">
+
+  <div *ngIf="loading$ | async" class="text-center">
     <app-loading></app-loading>
   </div>
-</ng-template>
+
 

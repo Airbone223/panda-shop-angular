@@ -1,7 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core'
-import {Subscription} from 'rxjs'
-import {OrdersService} from '../../shared/orders.service'
+import {Component, OnInit} from '@angular/core'
+import {Observable} from 'rxjs'
 import {Order} from '../../shared/inerfaces'
+import {Store} from '@ngrx/store'
+import {allOrdersSelector, loadingSelector} from '../../reducers/order/order'
+import {getOrders, removeOrderFromServer} from '../../reducers/order/order-actions'
+
 
 
 @Component({
@@ -9,38 +12,16 @@ import {Order} from '../../shared/inerfaces'
   templateUrl: './orders-page.component.html',
   styleUrls: ['./orders-page.component.scss']
 })
-export class OrdersPageComponent implements OnInit, OnDestroy {
-
-
-  orders: Order[] = []
-  pSub: Subscription
-
-  remSub: Subscription
-
-  constructor(private orderService: OrdersService) { }
+export class OrdersPageComponent implements OnInit {
+  orders$: Observable<Order[]> = this.store.select(allOrdersSelector)
+  loading$: Observable<boolean> = this.store.select(loadingSelector)
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.pSub = this.orderService.getAll().subscribe(
-      orders => {
-        this.orders = orders
-      }
-    )
+   this.store.dispatch(getOrders())
   }
 
   remove(id: string): void {
-    this.remSub = this.orderService.remove(id).subscribe(() => {
-      this.orders = this.orders.filter(order => order.id !== id)
-    })
+ this.store.dispatch(removeOrderFromServer({id}))
   }
-
-
-  ngOnDestroy(): void {
-    if (this.pSub) {
-      this.pSub.unsubscribe()
-    }
-    if (this.remSub) {
-      this.remSub.unsubscribe()
-    }
-  }
-
 }

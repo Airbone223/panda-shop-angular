@@ -1,6 +1,23 @@
-<div class="content" *ngIf="products.length; else loading">
+<div class="content" *ngIf="products$ | async as products">
+<div *ngIf="type$ | async as type">
 
-
+    <div class="icons-container">
+      <div class="icons">
+        <i class="material-icons" (click)="setType('All')"> select_all</i>
+      </div>
+      <div class="icons">
+        <i class="material-icons" (click)="setType('Phone')">phone_android</i>
+      </div>
+      <div class="icons">
+        <i class="material-icons" (click)="setType('Tablet')"> tablet_android</i>
+      </div>
+      <div class="icons">
+        <i class="material-icons" (click)="setType('Notebook')">laptop</i>
+      </div>
+      <div class="icons">
+        <i class="material-icons"   (click)="setType('Accessories')"> devices_other</i>
+      </div>
+    </div>
   <div class="form-control">
     <input type="text" placeholder="Найти товар..." [(ngModel)]="productName" />
   </div>
@@ -18,7 +35,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let product of products | search : productName; let idx = index">
+      <tr *ngFor="let product of products | search : productName | filter: type; let idx = index">
         <td>{{ idx + 1 }}</td>
         <td>{{ product.type}}</td>
         <td>{{ product.title}}</td>
@@ -37,11 +54,14 @@
       </tbody>
     </table>
   </div>
+
+  <div *ngIf="products.length === 0" class="text-center-loading">
+    <h3>Товары ещё не добавлены...</h3>
+  </div>
+</div>
 </div>
 
-<ng-template #loading>
-  <div class="text-center-loading">
+  <div *ngIf="loading$ | async" class="text-center-loading">
     <app-loading></app-loading>
   </div>
 
-</ng-template>

@@ -12,6 +12,8 @@ import {LoginPageComponent} from './login-page/login-page.component'
 import {SearchPipe} from '../shared/search.pipe'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {QuillModule} from 'ngx-quill'
+import {SharedModule} from '../shared/shared.module'
+
 
 
 
@@ -30,6 +32,7 @@ import {QuillModule} from 'ngx-quill'
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule.forRoot(),
     QuillModule.forRoot(
     ),
     RouterModule.forChild([

@@ -2,9 +2,12 @@
 .button-container {
 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  margin-bottom: 25px;
+  margin-top: 15px;
+  padding-bottom: 15px;
   .btn {
-    width: 5%;
+    width: 15%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -15,7 +18,8 @@
       &:after {
         content: attr(data-helper);
         position: absolute;
-        left: 0%; top: 100%;
+        left: 0;
+        top: 100%;
         width: 100%;
         z-index: 5;
         background: rgba(143, 143, 143, 0.9);
@@ -51,7 +55,7 @@
 @media (max-width: 768px) {
   .button-container {
     .btn {
-      width: 10%;
+      width: 20%;
     }
   }
   .button-container {
@@ -74,7 +78,7 @@
   .button-container {
     padding-top: 10px;
     .btn {
-      width: 17%;
+      width: 25%;
     }
   }
   .content {

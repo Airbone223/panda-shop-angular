@@ -15,43 +15,54 @@ import { FooterComponent } from './main/footer/footer.component'
 import { CartPageComponent } from './main/cart-page/cart-page.component'
 import { ProductPageComponent } from './main/product-page/product-page.component'
 import { ProductsComponent } from './main/products/products.component'
-import { FilterPipe } from './shared/filter.pipe'
-import {AuthIntnerseptor} from './shared/auth.interseptor'
+import {AuthInterceptor} from './shared/auth.interseptor'
 import {ReactiveFormsModule} from '@angular/forms'
 import {AdminModule} from './admin/admin.module'
 import {QuillModule} from 'ngx-quill'
+import {SharedModule} from './shared/shared.module'
+import {ServiceWorkerModule} from '@angular/service-worker'
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainLayoutComponent,
-    MainPageComponent,
-    ProductPageComponent,
-    CartPageComponent,
-    ProductsComponent,
-    FilterPipe,
-    FooterComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    QuillModule.forRoot(),
-    AdminModule,
-    ReactiveFormsModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers
-    }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects])
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      multi: true,
-      useClass: AuthIntnerseptor
-    }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        MainLayoutComponent,
+        MainPageComponent,
+        ProductPageComponent,
+        CartPageComponent,
+        ProductsComponent,
+        FooterComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        QuillModule.forRoot(),
+        AdminModule,
+        ReactiveFormsModule,
+        SharedModule.forRoot(),
+        StoreModule.forRoot(reducers, {
+            metaReducers
+        }),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+        EffectsModule.forRoot([AppEffects]),
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: environment.production,
+          // Register the ServiceWorker as soon as the app is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        })
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            multi: true,
+            useClass: AuthInterceptor
+        }
+    ],
+    exports: [
+      SharedModule
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

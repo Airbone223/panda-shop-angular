@@ -7,7 +7,7 @@ import {Product} from './inerfaces'
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(products: Product[], type = ''): any {
+  transform(products: Product[], type = 'All'): any {
     return products.filter( product => {
       if (type === 'All') {
         return product

@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core'
 import {Router} from '@angular/router'
-import {Product} from '../../reducers/counter'
-import {ProductService} from '../../shared/product.service'
+import {Product} from '../../shared/inerfaces'
+import {Store} from '@ngrx/store'
+import {Observable} from 'rxjs'
+import {cartSelector} from '../../reducers/order/order'
+import { setType } from 'src/app/reducers/product/product-actions'
+
 
 
 @Component({
@@ -10,28 +14,24 @@ import {ProductService} from '../../shared/product.service'
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements OnInit {
-
-  type = 'All'
-  cart: Product[] = []
+  cart$: Observable<Product[]> = this.store.select(cartSelector)
 
   constructor(
     private router: Router,
-    private productService: ProductService
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    this.cart = this.productService.cart
   }
 
 
   setType(type: string): void {
-    this.type = type
-    if (this.type !== 'cart') {
+    if (type !== 'cart') {
       this.router.navigate(['/'],
         {
-          queryParams: {type: this.type}
+          queryParams: {type}
         })
-      this.productService.setType(this.type)
+      this.store.dispatch(setType({checkedType: type}))
     }
   }
   onBurgerClick(event): void {

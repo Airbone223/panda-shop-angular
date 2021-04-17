@@ -49,9 +49,9 @@
           </li>
 
           <li routerLinkActive="clicked" class="relative">
-            <div *ngIf="cart.length" class="round">
+            <div *ngIf="cart$ | async as cart"><div *ngIf="cart.length" class="round">
               {{cart.length}}
-            </div>
+            </div></div>
             <a (click)="setType('cart')" class="header__link" [routerLink]="['/cart']">
               Корзина
             </a>

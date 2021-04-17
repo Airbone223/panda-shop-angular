@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import {Observable} from 'rxjs'
-import {Product} from '../../reducers/counter'
-import {ProductService} from '../../shared/product.service'
+import {Product} from '../../shared/inerfaces'
+import {Store} from '@ngrx/store'
+import {loadingSelector, productsSelector, typeSelector} from '../../reducers/product/product'
+import {getAll, setType} from '../../reducers/product/product-actions'
+
+
 
 
 @Component({
@@ -10,14 +14,16 @@ import {ProductService} from '../../shared/product.service'
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-
-  products$: Observable<Product[]>
+  products$: Observable<Product[]> = this.store.select(productsSelector)
+  loading$: Observable<boolean> = this.store.select(loadingSelector)
+  type$: Observable<string> = this.store.select(typeSelector)
   constructor(
-    public productService: ProductService
+    private store: Store
   ) { }
 
   ngOnInit(): void {
-    this.products$ = this.productService.getAll()
+    this.store.dispatch(setType({checkedType: 'All'}))
+    this.store.dispatch(getAll())
   }
 
 }

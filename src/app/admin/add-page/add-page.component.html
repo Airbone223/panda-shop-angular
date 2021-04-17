@@ -1,0 +1,69 @@
+<div class="container__main">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate>
+    <h3 class="align-center">Добавить товар:</h3>
+
+    <div class="form-control">
+      <label for="type">Тип товара</label>
+      <select id="type" formControlName="type">
+        <option value="Phone">Смартфоны</option>
+        <option value="Tablet">Планшеты</option>
+        <option value="Notebook">Ноутбуки</option>
+        <option value="Accessories">Аксессуары</option>
+      </select>
+      <div *ngIf="getControl.type.touched && getControl.type.invalid" class="validation">
+        <small *ngIf="getControl.type.errors?.required">Выберете тип товара</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="title">Наименование товара</label>
+      <input id="title" type="text" formControlName="title">
+      <div *ngIf="getControl.title.touched && getControl.title.invalid" class="validation">
+        <small *ngIf="getControl.title.errors?.required">Введите наименование товара</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="photo">Главное изображение товара</label>
+      <quill-editor [modules]="imageModule" formControlName="photo" id="photo" placeholder="Загрузите изображение товара..."></quill-editor>
+      <div *ngIf="getControl.photo.touched && getControl.photo.invalid" class="validation">
+        <small *ngIf="getControl.photo.errors?.required">Выберите фото</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="photo">Изображение товара</label>
+      <quill-editor [modules]="imageModule" formControlName="photoBack" id="photoBack" placeholder="Загрузите изображение товара..."></quill-editor>
+      <div *ngIf="getControl.photoBack.touched && getControl.photoBack.invalid" class="validation">
+        <small *ngIf="getControl.photoBack.errors?.required">Выберите фото</small>
+      </div>
+    </div>
+
+
+
+    <div class="form-control">
+      <label for="info">Описание товара</label>
+      <quill-editor id="info" formControlName="info" placeholder="Введите описание товара...">
+      </quill-editor>
+      <div *ngIf="getControl.info.touched && getControl.info.invalid" class="validation">
+        <small *ngIf="getControl.info.errors?.required">Введите описание товара</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="price">Цена товара</label>
+      <input id="price" type="text" formControlName="price">
+      <div *ngIf="getControl.price.touched && getControl.price.invalid" class="validation">
+        <small *ngIf="getControl.price.errors?.required">Введите цену товара</small>
+      </div>
+    </div>
+    <div class="btn-container">
+      <button type="submit" class="btn btn-dark" [disabled]="productForm.invalid || submitted">Добавить товар</button>
+    </div>
+
+  </form>
+
+</div>
+
+
+

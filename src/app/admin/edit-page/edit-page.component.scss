@@ -1,0 +1,16 @@
+.align-center {
+  text-align: center;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+  .btn {
+    width: 40%;
+  }
+}
+.text-center-loading {
+  margin-top: 100px;
+}
+
+

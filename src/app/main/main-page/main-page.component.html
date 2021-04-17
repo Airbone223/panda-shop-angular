@@ -1,0 +1,15 @@
+<div class="container__main">
+  <div class="dashboard"  *ngIf="products$ | async as products; else loading">
+    <app-product
+      *ngFor="let product of products | filter: productService.type" [product]="product"
+      class="box"
+    >
+    </app-product>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="text-center">
+    <app-loading></app-loading>
+  </div>
+</ng-template>
+<app-footer class="footer-container"></app-footer>

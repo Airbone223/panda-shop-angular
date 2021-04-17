@@ -1,0 +1,32 @@
+<div class="content-center">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+    <h3>Войти как администратор</h3>
+    <div class="form-control">
+      <label for="email">Email</label>
+      <input id="email" type="text" formControlName="email">
+      <div *ngIf="getControl.email.touched && getControl.email.invalid" class="validation">
+        <small *ngIf="getControl.email.errors?.required">Введите Email</small>
+        <small *ngIf="getControl.email.errors?.email">Введите корректный Email</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="password">Пароль</label>
+      <input id="password" type="password" formControlName="password">
+      <div *ngIf="getControl.password.touched && getControl.password.invalid" class="validation">
+        <small *ngIf="getControl.password.errors?.required">Введите пароль</small>
+        <small *ngIf="getControl.password.errors?.minlength">
+          Пароль должен быть не менее  {{getControl.password.errors?.minlength.requiredLength}} символов.
+        </small>
+      </div>
+    </div>
+    <div class="btn-container">
+      <button type="submit" class="btn btn-dark" [disabled]="userForm.invalid || submitted">Войти</button>
+    </div>
+
+  </form>
+</div>
+
+
+
+

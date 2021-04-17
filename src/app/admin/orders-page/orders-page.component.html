@@ -1,0 +1,49 @@
+<div class="container__main" *ngIf="orders.length; else noOrders">
+  <div class="table-container">
+    <table class="table table-dark table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Дата</th>
+        <th scope="col">Данные покупателя</th>
+        <th scope="col">Товары</th>
+        <th scope="col">Цена и способ оплаты</th>
+        <th scope="col">Статус</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order['date'] | date : 'short' }}</td>
+        <td>
+          тел: <strong>{{ order.phone}}</strong><br>
+          имя: <strong>{{ order.name }}</strong><br>
+          адрес: <strong>{{ order.address }}</strong>
+
+        </td>
+        <td>
+          <p *ngFor="let product of order.cart">{{ product.title }}</p>
+        </td>
+        <td>
+          <div>{{ order.price }}$</div>
+          <div>{{ order.payment }}</div>
+        </td>
+        <td>
+          <i  (click)="remove(order['id'])" class="material-icons icon remove">done</i>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+</div>
+
+<ng-template #noOrders>
+  <div class="noOrders">
+    <h3>Заказов ещё нет</h3>
+  </div>
+
+</ng-template>
+

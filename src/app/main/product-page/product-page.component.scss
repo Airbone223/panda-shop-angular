@@ -1,0 +1,86 @@
+
+.button-container {
+
+  display: flex;
+  justify-content: space-between;
+  .btn {
+    width: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+      &:after {
+        content: attr(data-helper);
+        position: absolute;
+        left: 0%; top: 100%;
+        width: 100%;
+        z-index: 5;
+        background: rgba(143, 143, 143, 0.9);
+        color: #ffffff;
+        font-size: 11px;
+        padding: 5px 5px;
+        border-radius: 5px;
+      }
+    }
+
+  }
+}
+.description-title {
+  width: 100%;
+  text-align: center;
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.flex-right {
+  text-align: center;
+}
+.flex-left {
+  text-align: center;
+}
+
+
+
+@media (max-width: 768px) {
+  .button-container {
+    .btn {
+      width: 10%;
+    }
+  }
+  .button-container {
+
+    .btn {
+
+      &:hover {
+        &:after {
+          display: none;
+        }
+      }
+
+    }
+  }
+}
+
+
+@media (max-width: 320px) {
+
+  .button-container {
+    padding-top: 10px;
+    .btn {
+      width: 17%;
+    }
+  }
+  .content {
+    padding-top: 30px;
+    margin-top:20px;
+  }
+}
+
+

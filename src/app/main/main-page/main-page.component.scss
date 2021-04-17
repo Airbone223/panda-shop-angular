@@ -1,0 +1,37 @@
+
+
+.dashboard {
+  padding: 0 5px 15px 5px;
+  margin: 0 0 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box {
+  width: 25%;
+  padding: 10px;
+}
+@media (max-width: 1000px) {
+  .box {
+    width: 33.33%;
+  }
+}
+@media (max-width: 768px) {
+  .box {
+    width: 50%;
+  }
+}
+
+@media (max-width: 450px) {
+  .box {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 320px) {
+  .dashboard {
+    padding-top: 30px;
+    margin-top:20px;
+  }
+}

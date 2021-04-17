@@ -1,0 +1,81 @@
+<div class="container__main" *ngIf="cart.length > 0; else empty">
+  <div class="common-container">
+    <h3 class="center">Ваша корзина:</h3>
+    <table class="table table-dark table-striped">
+      <caption>Общая стоимость:  {{totalPrice}} $</caption>
+      <thead>
+      <tr>
+        <th scope="col">Товар</th>
+        <th scope="col">Удалить</th>
+        <th scope="col">Цена</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of cart; let i = index">
+        <td>{{ product.title }}</td>
+        <td class="icon-center">
+          <i class="material-icons icon" (click)="delete(product)">delete_forever</i>
+        </td>
+        <td>{{ product.price }} $</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <h3 class="center">Оформить доставку:</h3>
+
+
+    <div *ngIf="added" class="added">{{added}} <i class="material-icons">pets</i></div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <div class="form-control">
+        <label for="name">Имя</label>
+        <input id="name" type="text" formControlName="name" placeholder="Введите ваше имя...">
+        <div *ngIf="getControl.name.touched && getControl.name.invalid" class="validation">
+          <small *ngIf="getControl.name.errors?.required">Введите ваше имя</small></div>
+      </div>
+
+
+      <div class="form-control">
+        <label for="phone">Номер телефона</label>
+        <input id="phone" type="phone" formControlName="phone" placeholder="Введите ваш номер телефона...">
+        <div *ngIf="getControl.phone.touched && getControl.phone.invalid" class="validation">
+          <small *ngIf="getControl.phone.errors?.required">Введите ваш номер телефона</small></div>
+      </div>
+
+      <div class="form-control">
+        <label for="address">Адрес</label>
+        <input id="address" type="address" formControlName="address" placeholder="Введите адрес...">
+        <div *ngIf="getControl.address.touched && getControl.address.invalid" class="validation">
+          <small *ngIf="getControl.address.errors?.required">Введите адрес</small></div>
+      </div>
+
+      <div class="form-control">
+        <label for="payment">Способ оплаты:</label>
+        <select id="payment" formControlName="payment">
+          <option value="Cash">Наличными курьеру</option>
+          <option value="Card">Картой на сайте</option>
+        </select>
+      </div>
+      <div class="btn-container">
+        <button type="submit" class="btn btn-dark" [disabled]="form.invalid || submitted">Оформить</button>
+      </div>
+    </form>
+
+
+  </div>
+</div>
+
+<ng-template #empty>
+  <div class="container__main">
+    <div class="cart-container">
+      <h3>Вы ничего не добавили в корзину!</h3>
+      <div class="cart-empty">
+        <img src="/assets/icons/cart_empty.svg" alt="Пустая корзина">
+      </div>
+    </div>
+
+
+  </div>
+</ng-template>
+
+<app-footer></app-footer>

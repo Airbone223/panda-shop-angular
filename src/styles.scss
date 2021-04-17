@@ -1,1 +1,378 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import '~quill/dist/quill.snow.css';
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css');
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+html, body {
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+}
+.wrapper__main {
+  position: relative;
+}
+.container__main {
+  max-width: 1180px;
+  margin: 10px auto;
+  padding: 0 10px;
+}
+.text-center {
+  text-align: center;
+  margin-top: 20%;
+  margin-bottom: 120%;
+}
+
+
+.form-control {
+  display: block;
+  color: #888;
+  margin-bottom: 10px;
+  border: none;
+  .validation {
+    color: #de1919;
+  }
+}
+input,
+select,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  &:hover {
+    border: 2px solid #8d8a8a;
+    padding: 4px;
+  }
+}
+
+
+
+.header__container {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #000000;
+  z-index: 2;
+
+  .header__body {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+.header__list {
+  display: flex;
+  position: relative;
+  list-style: none;
+}
+
+.header__list li {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 18px;
+  cursor: pointer;
+  list-style: none;
+  margin: 0 0 0 20px;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  & a {
+    color: #ffffff;
+    display: block;
+    position: relative;
+    &:hover {
+      font-weight: bold;
+      &:after {
+        position: absolute;
+        top: 51px;
+        content: " ";
+        display: block;
+        width: 100%;
+        background-color: #ffffff;
+        height: 2px;
+      }
+    }
+  }
+  &.clicked {
+    font-weight: bold;
+    color: lightgray;
+  }
+}
+
+.header__logo__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  h2.left, h2.right {
+    color: #ffffff;
+    margin-bottom: 15px;
+
+  }
+
+  h2.left {
+    margin-right: 5px;
+  }
+
+  h2.right {
+    margin-left: 5px;
+  }
+}
+
+.header__logo {
+  flex: 0 0 60px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  & img {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+.header__burger__container {
+  display: none;
+}
+
+.relative {
+  position: relative;
+  .round {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -50%;
+    left: -20%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    color: #ffffff;
+    background-color: red;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+  }
+}
+
+
+@media (max-width: 950px) {
+
+  .header__list li {
+    margin: 0 0 0 10px;
+
+    .header__link {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+
+  .header__container {
+    align-items: center;
+    height: 70px;
+
+    h2.left, h2.right {
+      margin-top: 10px;
+    }
+  }
+  .header__logo {
+    margin-top: 15px;
+    flex: 0 0 50px;
+  }
+  .header__menu {
+    display: none;
+  }
+  .header__burger__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .menu__block {
+      position: relative;
+    }
+
+    .header__burger__menu a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000000;
+      background-color: lightgray;
+      border: 1px solid #000000;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      margin-top: -25px;
+      left: 50%;
+      margin-left: -25px;
+      transition: all 0.3s ease-in-out 0s;
+    }
+
+    .header__burger {
+      z-index: 5;
+      width: 50px;
+      background-color: #ffffff;
+      height: 50px;
+      position: relative;
+      display: block;
+      border-radius: 50%;
+      transition: all 0.3s ease 0s;
+
+      span,
+      &::before,
+      &::after {
+        background-color: #000000;
+        position: absolute;
+        left: 50%;
+        margin-left: -20px;
+        margin-top: -1.5px;
+        width: 40px;
+        height: 3px;
+        top: 50%;
+      }
+
+      &::before {
+        transform: translateY(-7px);
+        transition: all 0.3s ease 0s;
+      }
+
+      &::after {
+        transform: translateY(7px);
+        transition: all 0.3s ease 0s;
+      }
+
+      &::before,
+      &::after {
+        content: '';
+      }
+
+      &.header__burger__active {
+        &::before {
+          transform: rotate(45deg);
+        }
+
+        &::after {
+          transform: rotate(-45deg);
+        }
+
+        & span {
+          transform: scale(0);
+        }
+
+        & ~ nav.header__burger__menu a {
+          cursor: pointer;
+        }
+
+        & ~ nav.header__burger__menu a:nth-child(1) {
+          transform: translate(-125%, 0%);
+        }
+
+        & ~ nav.header__burger__menu a:nth-child(2) {
+          transform: translate(-125%, 125%);
+        }
+
+        & ~ nav.header__burger__menu a:nth-child(3) {
+          transform: translate(0%, 125%);
+        }
+
+        & ~ nav.header__burger__menu a:nth-child(4) {
+          transform: translate(-125%, 250%);
+        }
+
+        & ~ nav.header__burger__menu a:nth-child(5) {
+          transform: translate(0%, 250%);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .header__container {
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .header__logo {
+    flex: 0 0 40px;
+  }
+  .header__burger__container {
+    .header__burger__menu a {
+      height: 30px;
+      width: 30px;
+      margin-top: -15px;
+      margin-left: -15px;
+    }
+
+    .header__burger {
+      width: 30px;
+      height: 30px;
+
+      span,
+      &::before,
+      &::after {
+        background-color: #000000;
+        position: absolute;
+        left: 50%;
+        margin-left: -10px;
+        margin-top: -1px;
+        width: 20px;
+        height: 2px;
+        top: 50%;
+      }
+    }
+  }
+  .text-center {
+    margin-top: 25%;
+  }
+  .content {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 400px) {
+  .form-control {
+    .validation {
+
+    }
+    input,
+    select,
+    textarea {
+      font-size: 14px;
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
+
+

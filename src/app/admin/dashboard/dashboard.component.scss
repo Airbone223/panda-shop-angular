@@ -1,0 +1,41 @@
+.table-container {
+  padding-bottom: 5px;
+}
+
+i.remove {
+  display: block;
+  &:hover {
+    cursor: pointer;
+    color: #de1919;
+  }
+}
+i.open {
+  display: block;
+  &:hover {
+    cursor: pointer;
+    color: silver;
+  }
+}
+
+.text-center-loading {
+  margin-top: 100px;
+}
+@media (max-width: 610px) {
+  .table-container {
+    font-size: 12px;
+  }
+}
+@media (max-width: 490px) {
+  .table-container {
+    overflow: scroll;
+  }
+}
+@media (max-width: 320px) {
+  .content {
+    padding-top: 40px;
+    margin-top: 20px;
+  }
+  .table-container {
+    overflow: scroll;
+  }
+}

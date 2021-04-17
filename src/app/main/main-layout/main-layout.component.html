@@ -1,0 +1,72 @@
+<header class="header__container">
+  <div class="container__main">
+    <div class="header__body">
+      <a [routerLink]="['/']" (click)="setType('All')">
+        <div class="header__logo__container">
+          <h2 class="left">Panda</h2>
+          <p class="header__logo">
+            <img src="./assets/icons/cute-fluffy-panda-face_1284-37906.jpg" alt="panda">
+          </p>
+          <h2 class="right">Shop</h2>
+        </div>
+      </a>
+      <div class="header__burger__container">
+        <div class="menu__block">
+          <a class="header__burger" (click)="onBurgerClick($event)">
+            <span></span>
+          </a>
+          <nav class="header__burger__menu">
+            <a class="header__burger__link" (click)="setType('Phone')">
+              <i class="material-icons">phone_android</i></a>
+            <a class="header__burger__link" (click)="setType('Tablet')">
+              <i class="material-icons"> tablet_android</i>
+            </a>
+            <a class="header__burger__link" (click)="setType('Notebook')">
+              <i class="material-icons">laptop</i></a>
+            <a class="header__burger__link" (click)="setType('Accessories')">
+              <i class="material-icons"> devices_other</i>
+            </a>
+            <a (click)="setType('cart')" class="header__burger__link " [routerLink]="['/cart']">
+              <i class="material-icons">shopping_cart</i>
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <nav class="header__menu">
+        <ul class="header__list">
+          <li>
+            <a class="header__link" (click)="setType('Phone')">Смартфоны</a>
+          </li>
+          <li>
+            <a class="header__link" (click)="setType('Tablet')">Планшеты</a>
+          </li>
+          <li>
+            <a class="header__link" (click)="setType('Notebook')">Ноутбуки</a>
+          </li>
+          <li>
+            <a class="header__link" (click)="setType('Accessories')">Аксессуары</a>
+          </li>
+
+          <li routerLinkActive="clicked" class="relative">
+            <div *ngIf="cart.length" class="round">
+              {{cart.length}}
+            </div>
+            <a (click)="setType('cart')" class="header__link" [routerLink]="['/cart']">
+              Корзина
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</header>
+
+
+<router-outlet>
+
+</router-outlet>
+
+
+
